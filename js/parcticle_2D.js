@@ -190,7 +190,6 @@ console.log(FULL)
 
       this.F_PE()
       this.F_PP()
-
   }
 }
 
@@ -295,14 +294,14 @@ var PP5  = new Parcticle(X,Y)
 var PP6  = new Parcticle(X,Y)
 var PP7  = new Parcticle(X,Y)
 var PP8  = new Parcticle(X,Y)
-var  PP11 = new Parcticle(X,Y)
-var  PP22 = new Parcticle(X,Y)
-var  PP33 = new Parcticle(X,Y)
-var  PP44 = new Parcticle(X,Y)
-var  PP55 = new Parcticle(X,Y)
-var  PP66 = new Parcticle(X,Y)
-var  PP77 = new Parcticle(X,Y)
-var  PP88 = new Parcticle(X,Y)
+var PP11 = new Parcticle(X,Y)
+var PP22 = new Parcticle(X,Y)
+var PP33 = new Parcticle(X,Y)
+var PP44 = new Parcticle(X,Y)
+var PP55 = new Parcticle(X,Y)
+var PP66 = new Parcticle(X,Y)
+var PP77 = new Parcticle(X,Y)
+var PP88 = new Parcticle(X,Y)
 setInterval(()=>{
 
 PP1 .SET_POS_PM({X,Y})
