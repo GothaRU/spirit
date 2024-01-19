@@ -4,121 +4,44 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
-	<style type="text/css">
-		body{/*бодибилдер*/
-			--X:400px;
-			--Y:300px;
-			--RadiusE:200px;
-			--RadiusM:100px;
-
-		}
-		PM{/*еще измененьице*/
-			height: 30px;
-			width: 30px;
-			background: red;
-				border-radius: 1000px;
-							display: block;
-			position: absolute;
-			left:calc(var(--X) - 15px);
-			top: calc(var(--Y) - 15px);
-			cursor: pointer;
-			z-index: 1000;
-		}
-		PE{
-			height: 10px;
-			width: 10px;
-			background: green;
-				border-radius: 1000px;
-							display: block;
-			position: absolute;
-			left:calc(var(--X) - 73px);
-			top: calc(var(--Y) - 73px);
-		}
-		PP{
-			height: 10px;
-			width: 10px;
-			background: blueviolet;
-				border-radius: 1000px;
-			display: block;
-			position: absolute;
-
-		}
-		VE{
-			height: 2px;
-			width: 50px;
-			background: darkgreen;
-			display: block;
-			position: absolute;
-			left:calc( var(--X) + 5px);
-			top: calc( var(--Y) + 5px);
-			transform: rotate(45deg);
-			transform-origin: top left;
-		}
-		VM{
-			height: 2px;
-			width: 50px;
-			background: darkred;
-			display: block;
-			position: absolute;
-			left:calc( var(--X) + 5px);
-			top: calc( var(--Y) + 5px);
-			transform: rotate(45deg);
-			transform-origin: top left;
-		}
-		RM{
-			height: var(--RadiusM);
-			width:  var(--RadiusM);
-			background: transparent;
-			border: 2px red solid;
-				border-radius: 1000px;
-			display: block;
-			position: absolute;
-			left:calc(var(--X) - var(--RadiusM) / 2 + 0px);
-			top: calc(var(--Y) - var(--RadiusM) / 2 + 0px);
-
-		}
-		RE{
-			height: var(--RadiusE);
-			width:  var(--RadiusE);
-			background: transparent;
-						border: 2px green solid;
-			border-radius: 1000px;
-			display: block;
-			position: absolute;
-			left:calc(var(--X) - var(--RadiusE) / 2 + 1px);
-			top: calc(var(--Y) - var(--RadiusE) / 2 + 1px);
-
-
-		}
-	</style>
+	<link rel="stylesheet" href="style.css">
 </head>
 <body>
 	<PM></PM>
-	<script>
+	<script> 
 
 
 		class Parcticle{
-			PP = {x:0,y:0}
-			PPspeed = 10 
+			  PP = {x:0,y:0}
+			  PPspeed = 10 
 			D_PP = 1
 		
 
-			PE = {x:0,y:0}
-			PEspeed  = 0.2
+			  PE = {x:0,y:0}
+			  PEspeed  = 0.2
 			D_PE = 0
-			PEradius = 100
+			  PEradius = 100
 			D_RE = 0
 			D_VE = 0
 
-			PM = {x:0,y:0}
+			  PM = {x:0,y:0}
 			D_PM = 0
-			PMradius = 300
+			  PMradius = 300
 			D_RM = 0
 			D_VM = 1
+		
 
 
 
 			time = 0
+
+			
+		
+
+
+
+			
+
 
 
 
@@ -162,9 +85,13 @@
 
 
 
+
+
 				this.PP.x    = Math.random() *800
 				this.PP.y    = Math.random() *800
 				if(this.D_PP)  createDOM_P('PP',this.PP)
+
+
 				this.PM.x     = X
 				this.PM.y     = Y
 				this.PMradius = 50
@@ -180,6 +107,9 @@
 				if(this.D_RE)  createDOM_R('RE',this.PM,this.PEradius)
 
 
+
+
+			
 
 			}
 			SET_POS_PM (pos){
@@ -209,6 +139,7 @@
 				this.time += this.PEspeed
 				this.PE.x =  Math.cos(this.time) * this.PEradius + this.PM.x
 				this.PE.y =  Math.sin(this.time) * this.PEradius + this.PM.y
+							
 
 							if(this.DPE){
 									this.DPE.style.left =  this.PE.x-2  + 'px' 
@@ -236,12 +167,15 @@
 
 
 console.log(FULL)
+
 							this.PP.x = this.PP.x + ( (VE.c * VE.p) ) + (VM.c * ((FULL/1.5)*VM.p)) 
 							this.PP.y = this.PP.y + ( (VE.s * VE.p) ) + (VM.s * ((FULL/1.5)*VM.p)) 
 
 							
 							this.DPP.style.left =  this.PP.x-5  + 'px' 
 							this.DPP.style.top  =  this.PP.y-5  +'px'
+
+
 
 
 
@@ -258,6 +192,7 @@ console.log(FULL)
 											this.DVE.style.transform = 'rotate('+ this.F_VE().atan2 * 180 / Math.PI  +'deg)'
 											this.DVE.style.width     = VE.p*5 +'px'
 							}
+
 
 
 
@@ -285,78 +220,102 @@ var [X,Y]=[300,400]
 
 PM.onmousedown = function(e) {
 
-    var coords = getCoords(PM);
-    var shiftX = e.pageX - coords.left;
-    var shiftY = e.pageY - coords.top;
+  var coords = getCoords(PM);
+  var shiftX = e.pageX - coords.left;
+  var shiftY = e.pageY - coords.top;
 
-    PM.style.position = 'absolute';
-    document.body.appendChild(PM);
-    moveAt(e);
+  PM.style.position = 'absolute';
+  document.body.appendChild(PM);
+  moveAt(e);
 
   PM.style.zIndex = 1000; // над другими элементами
 
-    function moveAt(e) {
-	var pos = {
-		x : e.pageX - shiftX,
-		y : e.pageY - shiftY,
-	}
+  function moveAt(e) {
+
+  	var pos = {
+  		x : e.pageX - shiftX,
+  		y : e.pageY - shiftY,
+  	}
 
     PM.style.left = e.pageX - shiftX + 'px';
     PM.style.top = e.pageY - shiftY + 'px';
    // SET_POS_PM
 X = pos.x +15
 Y = pos.y +15
-    }
+  }
 
-    document.onmousemove = function(e) {
+  document.onmousemove = function(e) {
     moveAt(e);
-    };
+  };
 
-PM.onmouseup = function() {
+  PM.onmouseup = function() {
     document.onmousemove = null;
     PM.onmouseup = null;
-    };
+  };
 
 }
 
 PM.ondragstart = function() {
-    return false;
+  return false;
 };
 
 function getCoords(elem) {   // кроме IE8-
-    var box = elem.getBoundingClientRect();
-    return {
+  var box = elem.getBoundingClientRect();
+  return {
     top: box.top + pageYOffset,
     left: box.left + pageXOffset
-    };
+  };
 }
 
 
 
-document.body.style.setProperty('--X', X+'px');
-document.body.style.setProperty('--Y', Y+'px');
+
+
+
+
+
+
+
+
+
+
+
+
+
+ document.body.style.setProperty('--X', X+'px');
+
+ document.body.style.setProperty('--Y', Y+'px');
+
 var [PMx,PMy] = [parseInt(window.getComputedStyle(PM).left),parseInt(window.getComputedStyle(PM).top)]
 
 
 
+
+
+
+
+
+
+
 console.log(PMx,PMy)
-var PP1  = new Parcticle(X,Y)
-var PP2  = new Parcticle(X,Y)
-var PP3  = new Parcticle(X,Y)
-var PP4  = new Parcticle(X,Y)
-var PP5  = new Parcticle(X,Y)
-var PP6  = new Parcticle(X,Y)
-var PP7  = new Parcticle(X,Y)
-var PP8  = new Parcticle(X,Y)
-var PP11 = new Parcticle(X,Y)
-var PP22 = new Parcticle(X,Y)
-var PP33 = new Parcticle(X,Y)
-var PP44 = new Parcticle(X,Y)
-var PP55 = new Parcticle(X,Y)
-var PP66 = new Parcticle(X,Y)
-var PP77 = new Parcticle(X,Y)
-var PP88 = new Parcticle(X,Y)
+ var PP1  = new Parcticle(X,Y)
+ var PP2  = new Parcticle(X,Y)
+ var PP3  = new Parcticle(X,Y)
+ var PP4  = new Parcticle(X,Y)
+ var PP5  = new Parcticle(X,Y)
+ var PP6  = new Parcticle(X,Y)
+ var PP7  = new Parcticle(X,Y)
+ var PP8  = new Parcticle(X,Y)
+var  PP11 = new Parcticle(X,Y)
+var  PP22 = new Parcticle(X,Y)
+var  PP33 = new Parcticle(X,Y)
+var  PP44 = new Parcticle(X,Y)
+var  PP55 = new Parcticle(X,Y)
+var  PP66 = new Parcticle(X,Y)
+var  PP77 = new Parcticle(X,Y)
+var  PP88 = new Parcticle(X,Y)
 		setInterval(()=>{
+
 PP1 .SET_POS_PM({X,Y})
 PP2 .SET_POS_PM({X,Y})
 PP3 .SET_POS_PM({X,Y})
@@ -392,7 +351,11 @@ PP55.tic()
 PP66.tic()
 PP77.tic()
 PP88.tic()
-			},50)
+
+
+			},50) 
+
+
 	</script>
 </body>
 </html>
