@@ -50,11 +50,17 @@ class Parcticle {
        const 	Sphere   = new this . three            . Mesh                ( geometry, material );
                 Sphere   .     castShadow              = true;
                     this .     scene                   . add                 ( Sphere );
-                    Sphere   .position.copy           ( pos3 )
-                    return Sphere
+                Sphere   . position.copy           ( pos3 )
+        return  Sphere
     }
-    CREATE_M_Vector ()  {
+    CREATE_M_Vector (points = [new three.Vector3( 0, 0, 0 ),new three.Vector3( 1, 0, 0 )])  {
         //var this.M_list['M_'+]
+        const   Lmaterial = new this . three.LineBasicMaterial( { color: 0x0000ff } );
+        const   Lgeometry = new this . three.BufferGeometry().setFromPoints( points );
+        const   line = new this . three.Line( Lgeometry, Lmaterial );
+                this . scene.add( line );
+        return  line
+
     }
     CREATE_M_Radius ()  {
        // var this.M_list['M_'+]

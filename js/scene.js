@@ -10,15 +10,15 @@ import { Parcticle } from 'parcticle_3D';
  //import * as three from './parcticle_3D.js';
 
 
-const   scene = new three.Scene();
-		scene . background = new three.Color( 0xf0f0f0 );
-const camera = new three.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+const   scene  = new three.Scene();
+		scene  . background = new three.Color( 0xf0f0f0 );
+const 	camera = new three.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+		camera . position.z = 5;
 
-
-const renderer = new three.WebGLRenderer();
-renderer.shadowMap.enabled = true;
-renderer.setSize( window.innerWidth, window.innerHeight );
-document.body.appendChild( renderer.domElement );
+const 	renderer = new three.WebGLRenderer();
+		renderer.shadowMap.enabled = true;
+		renderer.setSize( window.innerWidth, window.innerHeight );
+		document.body.appendChild( renderer.domElement );
 
 
 
@@ -49,25 +49,15 @@ scene.add( light );
 				});
 				scene.add( transformControl );
 
-				transformControl.addEventListener( 'objectChange', function () {
-					updateSplineOutline();
+				transformControl.addEventListener( 'objectChange', function (E) {
+					updateMoveElemets(E);
 				});
 				//document.addEventListener( 'pointerdown', onPointerDown );
 				//document.addEventListener( 'pointerup', onPointerUp );
 				document.addEventListener( 'pointermove', onPointerMove );
 				window.addEventListener( 'resize', onWindowResize );
 
-				const Lmaterial = new three.LineBasicMaterial( { color: 0x0000ff } );
-				const points = [];
-				points.push( new three.Vector3( - 10, 0, 0 ) );
-				points.push( new three.Vector3( 0, 10, 0 ) );
-				points.push( new three.Vector3( 20, 10, 0 ) );
-				points.push( new three.Vector3( 10, 0, 0 ) );
-				points.push( new three.Vector3( -10, 0, 0 ) );
-				
-				const Lgeometry = new three.BufferGeometry().setFromPoints( points );
-				const line = new three.Line( Lgeometry, Lmaterial );
-				scene.add( line );
+
 
 const planeGeometry = new three.PlaneGeometry( 2000, 2000 );
 planeGeometry.rotateX( - Math.PI / 2 );
@@ -84,9 +74,16 @@ helper.material.transparent = true;
 scene.add( helper );
 
 var P = new Parcticle 	   ({scene,transformControl,three})
-	var p1 = P . 	CREATE_M_Point ([0,0,0])
+var p1 = P . 	CREATE_M_Point ([0,0,0])
 		transformControl        . attach              ( p1 );
-camera.position.z = 5;
+
+var V1	=	P . 	CREATE_M_Vector ([
+										new three.Vector3( 0, 0, 0 ),
+										new three.Vector3( 0, 0, 0 ),
+									])
+
+
+
 
 function animate() {
 	requestAnimationFrame( animate );
@@ -125,6 +122,8 @@ function render() {
 				//		transformControl.attach( object );
 				//	}
 				//}
+				
+				
 			}
 
 			function onWindowResize() {
@@ -137,3 +136,27 @@ function render() {
 				render();
 
 			}
+			var r = 0 
+			function updateMoveElemets(E) {
+				
+				
+
+				var pos  = V1.geometry.attributes.position
+					pos  . setXYZ(0 ,...p1.position.toArray())
+					pos  . needsUpdate = true;
+					// странное получение точек через жопу ..... ну ладно хоть так  
+					// почему блять не реализован pos.getXYZ ?!?!
+				var pos0 = new three.Vector3().fromBufferAttribute(pos, 0)
+				var pos1 = new three.Vector3().fromBufferAttribute(pos, 1)
+
+				pos  . setXYZ(1,...pos0.multiplyScalar(0.5).toArray())
+
+
+
+
+				
+				//pos.setXYZ(1,  ...p1.position.toArray()  )
+				console.log('E',E )
+
+			}
+			
