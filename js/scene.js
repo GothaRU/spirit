@@ -82,7 +82,7 @@ var V1	=	P . 	CREATE_M_Vector ([
 										new three.Vector3( 0, 0, 0 ),
 									])
 
-
+var R1 = P .  CREATE_M_Radius({divisions:30,radius:0.5})
 
 
 function animate() {
@@ -148,7 +148,7 @@ function render() {
 					// почему блять не реализован pos.getXYZ ?!?!
 				var pos0 = new three.Vector3().fromBufferAttribute(pos, 0)
 				var pos1 = new three.Vector3().fromBufferAttribute(pos, 1)
-
+				R1. position.copy  ( pos0)
 				pos  . setXYZ(1,...pos0.multiplyScalar(0.5).toArray())
 
 
@@ -156,7 +156,7 @@ function render() {
 
 				
 				//pos.setXYZ(1,  ...p1.position.toArray()  )
-				console.log('E',E )
+				console.log('E',R1 )
 
 			}
 			

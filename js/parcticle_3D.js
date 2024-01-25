@@ -62,8 +62,27 @@ class Parcticle {
         return  line
 
     }
-    CREATE_M_Radius ()  {
-       // var this.M_list['M_'+]
+    CREATE_M_Radius ({divisions=30,radius=1})  {
+        const vertices = [];
+
+        divisions = divisions * radius
+      
+        for ( let i = 0; i <= divisions; i ++ ) {
+            const v = ( i / divisions ) * ( Math.PI * 2 );
+            const x = Math.sin(v)*radius;
+            const z = Math.cos(v)*radius;
+            vertices.push( x, 0, z );
+        }
+
+        const   Lgeometry = new this . three.BufferGeometry();
+                Lgeometry.setAttribute( 'position', new this . three.Float32BufferAttribute( vertices, 3 ) );
+        const   Lmaterial = new this . three.LineBasicMaterial( {
+                    color: Math.random() * 0xffffff,
+                    linewidth: 10
+                });
+                const   line = new this . three.Line( Lgeometry, Lmaterial );
+                this . scene.add( line );
+        return  line     
     }
     SET_D_posM(v3){}
     SET_D_posE(v3){}
