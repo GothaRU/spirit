@@ -2,6 +2,7 @@
  import * as three from "three";
  import { OrbitControls } from 'controls/OrbitControls.js';
  import { TransformControls } from 'controls/TransformControls.js';
+ import { Parcticle } from 'parcticle_3D';
 
 
  //import { }     from './lib/threeJS/jsm/OrbitControls.js';
@@ -77,14 +78,17 @@ helper.material.opacity = 0.25;
 helper.material.transparent = true;
 scene.add( helper );
 
-const geometry = new three.SphereGeometry( 0.1, 20, 20 );
-const material = new three.MeshLambertMaterial( { color: Math.random() * 0xffffff } );
-const cube     = new three.Mesh( geometry, material );
-      cube     . castShadow    = true;
-      transformControl.attach( cube );
-    //  cube     . receiveShadow = true;
+//          const 	geometry = new three.SphereGeometry( 0.1, 20, 20 );
+//          const 	material = new three.MeshLambertMaterial( { color: Math.random() * 0xffffff } );
+//          const 	cube     = new three.Mesh( geometry, material );
+//              	cube     . castShadow    = true;
+//              	transformControl.attach( cube );
+//              //  cube     . receiveShadow = true;
+//          scene.add( cube );
+var P = new Parcticle 	   ({scene,transformControl,three})
+	var  p1 = P . 	CREATE_M_Point ([0,0,0])
+	   transformControl        . attach              ( p1 );
 
-scene.add( cube );
 camera.position.z = 5;
 
 function animate() {
