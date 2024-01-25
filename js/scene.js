@@ -1,22 +1,156 @@
- import * as THREE from './lib/threeJS/three.module.js';
+// import * as three from './lib/threeJS/three.module.js';
+ import * as three from "three";
+ import { OrbitControls } from 'controls/OrbitControls.js';
+ import { TransformControls } from 'controls/TransformControls.js';
 
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
-const renderer = new THREE.WebGLRenderer();
+ //import { }     from './lib/threeJS/jsm/OrbitControls.js';
+
+ //import * as three from './parcticle_3D.js';
+
+
+const scene = new three.Scene();
+      scene . background = new three.Color( 0xf0f0f0 );
+const camera = new three.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+
+
+const renderer = new three.WebGLRenderer();
+renderer.shadowMap.enabled = true;
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
-const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-const cube = new THREE.Mesh( geometry, material );
+
+
+scene.add( new three.AmbientLight( 0xf0f0f0, 3 ) );
+const light = new three.SpotLight( 0xffffff, 4.5 );
+light.position.set( 0, 1500, 200 );
+light.angle = Math.PI * 0.2;
+light.decay = 0;
+light.castShadow = true;
+light.shadow.camera.near = 200;
+light.shadow.camera.far = 2000;
+light.shadow.bias = - 0.000222;
+light.shadow.mapSize.width = 1024;
+light.shadow.mapSize.height = 1024;
+scene.add( light );
+
+				// Controls
+				const controls = new OrbitControls( camera, renderer.domElement );
+				controls.damping = 0.2;
+				controls.addEventListener( 'change', render );
+
+                let transformControl;
+				transformControl = new TransformControls( camera, renderer.domElement );
+				transformControl.addEventListener( 'change', render );
+				transformControl.addEventListener( 'dragging-changed', function ( event ) {
+
+					controls.enabled = ! event.value;
+
+				} );
+				scene.add( transformControl );
+
+				transformControl.addEventListener( 'objectChange', function () {
+
+					updateSplineOutline();
+
+				} );
+
+				//document.addEventListener( 'pointerdown', onPointerDown );
+				//document.addEventListener( 'pointerup', onPointerUp );
+				document.addEventListener( 'pointermove', onPointerMove );
+				window.addEventListener( 'resize', onWindowResize );
+
+
+
+
+const planeGeometry = new three.PlaneGeometry( 2000, 2000 );
+planeGeometry.rotateX( - Math.PI / 2 );
+const planeMaterial = new three.ShadowMaterial( { color: 0x000000, opacity: 0.2 } );
+const plane = new three.Mesh( planeGeometry, planeMaterial );
+plane.position.y = - 2;
+plane.receiveShadow = true;
+scene.add( plane );
+
+const helper = new three.GridHelper( 20, 100 );
+helper.position.y = - 1;
+helper.material.opacity = 0.25;
+helper.material.transparent = true;
+scene.add( helper );
+
+const geometry = new three.SphereGeometry( 0.1, 20, 20 );
+const material = new three.MeshLambertMaterial( { color: Math.random() * 0xffffff } );
+const cube     = new three.Mesh( geometry, material );
+      cube     . castShadow    = true;
+      transformControl.attach( cube );
+    //  cube     . receiveShadow = true;
+
 scene.add( cube );
 camera.position.z = 5;
 
 function animate() {
 	requestAnimationFrame( animate );
-    cube.rotation.x += 0.01;
-    cube.rotation.y += 0.01;
 	renderer.render( scene, camera );
 }
 animate();
+function render() {
+
+   // splines.uniform.mesh.visible = params.uniform;
+   // splines.centripetal.mesh.visible = params.centripetal;
+   // splines.chordal.mesh.visible = params.chordal;
+    renderer.render( scene, camera );
+
+}
+			function onPointerDown( event ) {
+
+				onDownPosition.x = event.clientX;
+				onDownPosition.y = event.clientY;
+
+			}
+
+			function onPointerUp( event ) {
+
+				onUpPosition.x = event.clientX;
+				onUpPosition.y = event.clientY;
+
+				if ( onDownPosition.distanceTo( onUpPosition ) === 0 ) {
+
+					transformControl.detach();
+					render();
+
+				}
+
+			}
+
+			function onPointerMove( event ) {
+
+				//pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+				//pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
+				//raycaster.setFromCamera( pointer, camera );
+//
+				//const intersects = raycaster.intersectObjects( splineHelperObjects, false );
+//
+				//if ( intersects.length > 0 ) {
+//
+				//	const object = intersects[ 0 ].object;
+//
+				//	if ( object !== transformControl.object ) {
+//
+				//		transformControl.attach( object );
+//
+				//	}
+//
+				//}
+
+			}
+
+			function onWindowResize() {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+				render();
+
+			}
