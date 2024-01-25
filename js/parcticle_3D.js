@@ -5,7 +5,7 @@
 //      "three/addons/": "https://unpkg.com/three@<version>/examples/jsm/"
 //    }
 //  }
-//</script>
+//</script> 
 
 var XY = 0 
 var Z  = 0
@@ -38,20 +38,31 @@ class Parcticle {
     D_M_RE = 0 ;          M_VE = 0  ;          D_M_PE = 0
     time   = 0
 
-    constructor(){
-
+    constructor({scene,transformControl,three}){
+        this . scene            = scene
+        this . transformControl = transformControl
+        this . three            = three
     }
-    CREATE_M_Point  ()  {
-        var this.M_list['M_'+]
+    CREATE_M_Point  (pos3=[0,0,0])  {
+                    pos3 = new this . three            . Vector3(...pos3);
+       const 	geometry = new this . three            . SphereGeometry      ( 0.1, 20, 20 );
+       const 	material = new this . three            . MeshLambertMaterial ( { color: Math.random() * 0xffffff } );
+       const 	Sphere   = new this . three            . Mesh                ( geometry, material );
+                Sphere   .     castShadow              = true;
+                    this .     scene                   . add                 ( Sphere );
+                    Sphere   .position.copy           ( pos3 )
+                    return Sphere
     }
     CREATE_M_Vector ()  {
-        var this.M_list['M_'+]
+        //var this.M_list['M_'+]
     }
     CREATE_M_Radius ()  {
-        var this.M_list['M_'+]
+       // var this.M_list['M_'+]
     }
     SET_D_posM(v3){}
     SET_D_posE(v3){}
     
     tic(){}
 }
+
+export {Parcticle};
