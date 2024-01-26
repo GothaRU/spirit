@@ -107,8 +107,8 @@ class Parcticle {
       //console.log(this.PM.position , this.M_PP_list[0].position )  
 
 
-      var XZ = iFrame/15 
-      var Y  = 0//iFrame/15
+      var XZ = iFrame/12 
+      var Y  = iFrame/48
       var Pi  = (XZ,Y)=> [ Math.cos(XZ)*Math.cos(Y) , Math.sin(Y),Math.sin(XZ)*Math.cos(Y)  ] // позиция на шаре с радиусом 1 
       
       
@@ -117,13 +117,13 @@ class Parcticle {
         for(let P of this.M_P_list){
             //console.log(P)
             P.RT.position.copy(this.PM.position)
-           // P.RT.rotation.set(0,0,1)
-            P.PT.position.copy(this.PM.position.clone().add(new this.three.Vector3( ...Pi(XZ,Y) )))
+            P.RT.rotation.set(0,0,Y)
+            P.PT.position.copy(this.PM.position.clone().add(new this.three.Vector3( ...Pi(XZ,0) ).applyEuler(P.RT.rotation)) )
             P.PP.position.add(  
                             P.PT.position
                                 .clone()
                                 .sub(P.PP.position)
-                                .multiplyScalar(0.05)       
+                                .multiplyScalar(0.1)       
             )
 //.clone().sub(P.PT.position).multiplyScalar(0.05)
             let pos = P.VP.geometry.attributes.position
