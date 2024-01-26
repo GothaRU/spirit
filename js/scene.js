@@ -74,19 +74,22 @@ helper.material.transparent = true;
 scene.add( helper );
 
 var P = new Parcticle 	   ({scene,transformControl,three})
-var p1 = P . 	CREATE_M_Point ([0,0,0])
-		transformControl        . attach              ( p1 );
+P.CREATE_M_Master  ([0,0,0])
+P.CREATE_M_Particle([1,1,1])
+//var p1 = P . 	CREATE_M_Point ([0,0,0])
+		//transformControl        . attach              ( p1 );
 
-var V1	=	P . 	CREATE_M_Vector ([
-										new three.Vector3( 0, 0, 0 ),
-										new three.Vector3( 0, 0, 0 ),
-									])
+//var V1	=	P . 	CREATE_M_Vector ([
+//										new three.Vector3( 0, 0, 0 ),
+//										new three.Vector3( 0, 0, 0 ),
+//									])
 
-var R1 = P .  CREATE_M_Radius({divisions:30,radius:0.5})
+//var R1 = P .  CREATE_M_Radius({divisions:30,radius:0.5})
 
-
+var iFrame = 0
 function animate() {
 	requestAnimationFrame( animate );
+	P.tic(iFrame++)
 	renderer.render( scene, camera );
 }
 animate();
@@ -141,22 +144,22 @@ function render() {
 				
 				
 
-				var pos  = V1.geometry.attributes.position
-					pos  . setXYZ(0 ,...p1.position.toArray())
-					pos  . needsUpdate = true;
-					// странное получение точек через жопу ..... ну ладно хоть так  
-					// почему блять не реализован pos.getXYZ ?!?!
-				var pos0 = new three.Vector3().fromBufferAttribute(pos, 0)
-				var pos1 = new three.Vector3().fromBufferAttribute(pos, 1)
-				R1. position.copy  ( pos0)
-				pos  . setXYZ(1,...pos0.multiplyScalar(0.5).toArray())
+			//	var pos  = V1.geometry.attributes.position
+			//		pos  . setXYZ(0 ,...p1.position.toArray())
+			//		pos  . needsUpdate = true;
+			//		// странное получение точек через жопу ..... ну ладно хоть так  
+			//		// почему блять не реализован pos.getXYZ ?!?!
+			//	var pos0 = new three.Vector3().fromBufferAttribute(pos, 0)
+			//	var pos1 = new three.Vector3().fromBufferAttribute(pos, 1)
+			//	R1. position.copy  ( pos0)
+			//	pos  . setXYZ(1,...pos0.multiplyScalar(0.5).toArray())
 
 
 
 
 				
 				//pos.setXYZ(1,  ...p1.position.toArray()  )
-				console.log('E',R1 )
+				//console.log('E',R1 )
 
 			}
 			
