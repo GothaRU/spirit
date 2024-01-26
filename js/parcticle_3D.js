@@ -28,7 +28,7 @@ class Parcticle {
     //  R  = Radius        V   = Vector
     D_M_R  = 1  ;      D_M_V   = 1
     //  RM = RadiusMaster  VM  = VectorMaster      PM = pointMaster
-    D_M_RM = 0  ;      D_M_VM  = 1           ; D_M_PM = 1
+    D_M_RM = 1  ;      D_M_VM  = 1           ; D_M_PM = 1
     //  RE = RadiusElement  VE = VectorElement     PE = pointElement
     D_M_RE = 0 ;          M_VE = 0  ;          D_M_PE = 0
     time   = 0
@@ -86,10 +86,10 @@ class Parcticle {
        this.M_P_list.push({
         PP : this.CREATE_M_Point (pos3),
         VP : this.CREATE_M_Vector([new this.three.Vector3( 0, 0, 0 ),new this.three.Vector3( 1, 0, 0 )]),
+        VM : this.CREATE_M_Vector([new this.three.Vector3( 0, 0, 0 ),new this.three.Vector3( 1, 0, 0 )]),
 
-
-        PT : this.CREATE_M_Point  (this.PM.position.clone().add(new this.three.Vector3( 1, 0, 0 ))),
-        RT : this.CREATE_M_Radius (),
+        PT : this.CREATE_M_Point  (this.PM.position.clone().add(new this.three.Vector3( 1.5, 0, 0 ))),
+        RT : this.CREATE_M_Radius ({divisions:30,radius:1.5}),
 
        }
         
@@ -107,8 +107,8 @@ class Parcticle {
       //console.log(this.PM.position , this.M_PP_list[0].position )  
 
 
-      var XZ = iFrame/12 
-      var Y  = iFrame/48
+      var XZ = 0//iFrame/12 
+      var Y  = 0//iFrame/48
       var Pi  = (XZ,Y)=> [ Math.cos(XZ)*Math.cos(Y) , Math.sin(Y),Math.sin(XZ)*Math.cos(Y)  ] // позиция на шаре с радиусом 1 
       
       
@@ -116,26 +116,62 @@ class Parcticle {
 
         for(let P of this.M_P_list){
             //console.log(P)
+            this.RM.position.copy(this.PM.position)
             P.RT.position.copy(this.PM.position)
             P.RT.rotation.set(0,0,Y)
-            P.PT.position.copy(this.PM.position.clone().add(new this.three.Vector3( ...Pi(XZ,0) ).applyEuler(P.RT.rotation)) )
-            P.PP.position.add(  
+            P.PT.position.copy(this.PM.position
+                                      .clone    ()
+                                      .add      (new this.three.Vector3        ( ...Pi(XZ,0) )
+                                                               .multiplyScalar (1.5)
+                                                               .applyEuler     (P.RT.rotation)) )
+                                           
+                    var FULL = Math.abs(2*1.5)
+                    let D = 1-((this.PM.position.distanceTo(P.PP.position) - 1 )/(1.5 - 1)   )
+            P.PP.position
+                .add(  
                             P.PT.position
                                 .clone()
                                 .sub(P.PP.position)
-                                .multiplyScalar(0.1)       
+                                .multiplyScalar(0.03)       
+                )
+                .sub(  
+                    this.PM.position
+                        .clone()
+                        .sub(P.PP.position)
+                        .multiplyScalar((FULL/10)*((Math.abs(D) + D)/10))       
             )
+
+
+//     V2speed = 1-((this.F_VM().len - this.PMradius) / (this.PEradius - this.PMradius))
+           
+            let pos0 = P.VM.geometry.attributes.position
+            pos0  . needsUpdate = true;
+            pos0  . setXYZ (0 , ...P.PP.position.clone()
+                                                .sub(  this.PM.position
+                                                                    .clone()
+                                                                    .sub(P.PP.position)
+                                                                    .multiplyScalar((Math.abs(D) + D)/2)  )
+                                                .toArray()
+                            )
+            pos0  . setXYZ (1 , ...P.PP.position.toArray())
+
+
+
+
+
+
+
 //.clone().sub(P.PT.position).multiplyScalar(0.05)
-            let pos = P.VP.geometry.attributes.position
-            pos  . needsUpdate = true;
-            pos  . setXYZ (0 , ...P.PP.position.clone()
+            let pos1 = P.VP.geometry.attributes.position
+            pos1  . needsUpdate = true;
+            pos1  . setXYZ (0 , ...P.PP.position.clone()
                                                 .add(  P.PT.position
                                                                     .clone()
                                                                     .sub(P.PP.position)
                                                                     .multiplyScalar(0.5)  )
                                                 .toArray()
             )
-            pos  . setXYZ (1 , ...P.PP.position.toArray())
+            pos1  . setXYZ (1 , ...P.PP.position.toArray())
 
         }
       
