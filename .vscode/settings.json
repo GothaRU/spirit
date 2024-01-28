@@ -1,0 +1,139 @@
+{
+    "workbench.colorTheme": "Default Dark Modern",
+    "git.autofetch": true,
+    "gitlens.graph.minimap.additionalTypes": [
+        "remoteBranches",
+        "stashes",
+        "tags",
+        "localBranches"
+    ],
+    "gitlens.graph.minimap.dataType": "lines",
+    "gitlens.views.tags.branches.layout": "list",
+    "gitlens.views.tags.avatars": false,
+    "gitlens.views.tags.files.compact": false,
+    "gitlens.advanced.messages": {
+        "suppressCreatePullRequestPrompt": true
+    },
+    "git.enableSmartCommit": true,
+    "gitlens.hovers.currentLine.over": "line",
+    "gitlens.graph.defaultItemLimit": 859,
+    "gitlens.graph.pageItemLimit": 614,
+    "gitlens.graph.layout": "editor",
+    "gitlens.graph.searchItemLimit": 187,
+    "gitlens.graph.scrollRowPadding": 31,
+    "gitlens.graph.scrollMarkers.enabled": false,
+    "gitlens.views.commits.showBranchComparison": "branch",
+    "gitlens.views.commits.avatars": false,
+    "gitlens.views.formats.commits.label": "${❰ tips|11? ❱➤  } [${message}]",
+    "git-log--graph.actions.commit": [
+
+    ],
+    "git-log--graph.row-height": 40,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "diffEditor.hideUnchangedRegions.enabled": true,
+    "outline-map.workspace.excludes": [
+        {
+            "file": "/js/parcticle_3D.js"
+        }
+    ],
+    "indentRainbow.ignoreLinePatterns": [
+
+        "/[ \t]* [*]/g",
+        "/[ \t]+[/]{2}/g"
+    ],
+    "workbench.iconTheme": "vscode-icons",
+    "indentRainbow.colorOnWhiteSpaceOnly": true,
+    "indentRainbow.indicatorStyle": "light",
+    "indentRainbow.lightIndicatorStyleLineWidth": 4,
+    "indentRainbow.colors": [
+
+
+        "rgba(255,255,64,0.5)",
+        "rgba(127,255,127,0.5)",
+        "rgba(255,127,255,0.5)",
+        "rgba(79,236,236,0.5)"
+    ],
+    "workbench.editor.enablePreview": false,
+    "bracket-pair-colorizer-2.rulerPosition": "Full",
+    "bracket-pair-colorizer-2.scopeLineCSS": [
+        "borderStyle : solid",
+        "borderWidth : 5px",
+        "borderColor : {color}",
+        "opacity: 0.5"
+    ],
+    "bracket-pair-colorizer-2.colorMode": "Independent",
+    "bracket-pair-colorizer-2.highlightActiveScope": true,
+    "bracket-pair-colorizer-2.showBracketsInGutter": true,
+    "hediet.vscode-drawio.resizeImages": null,
+    "bracket-pair-colorizer-2.showBracketsInRuler": true,
+    "coloredRegions.namedColors": {
+       
+        "TODO_WORK": "rgba(255, 255, 255, 0.1)",
+        "TODO_BUG": "rgba(200, 0, 0, 0.1)",
+        "TODO_FIXME": "rgba(255, 255, 0, 0.1)",
+        "MyFavoriteColor": "rgba(79, 44, 115, 0.5)"
+    },
+    "bracket-pair-colorizer-2.forceUniqueOpeningColor": true,
+    "todo-tree.general.tags": [
+        "[TODO_BUG]",
+        "[TODO_ERROR]",
+        "[TODO_FIXME]",
+        "[TODO_HACK]",
+        "[TODO_TODO]",
+        "[TODO_XXX]",
+        "[TODO_[ ]]",
+        "[TODO_[x]]",
+        "[TODO_WORK]",
+        "[TODO_IDEA]"
+    ],
+    "todo-tree.highlights.useColourScheme": true,
+    "todo-tree.tree.labelFormat": "${after}",
+    "todo-tree.tree.showCountsInTree": true,
+    "todo-tree.tree.buttons.scanMode": true,
+    "todo-tree.regex.enableMultiLine": true,
+    "todo-tree.highlights.foregroundColourScheme": [
+        "rgba(255, 100, 100, 1)",
+        "black",
+        "black",
+        "white",
+        "white",
+        "white",
+        "black",
+        "black",
+        "rgba(255, 150, 150, 1)",
+        "rgba(150, 150, 255, 1)",
+    ],
+    "todo-tree.highlights.backgroundColourScheme": [
+        "rgba(150, 0, 0, 1)",
+        "orange",
+        "yellow",
+        "green",
+        "blue",
+        "indigo",
+        "violet",
+        "white",
+        "rgba(200, 200, 200, 1)",
+        "rgba(100, 100, 150, 1)",
+    ],
+    "todo-tree.tree.tagsOnly": true,
+    "todo-tree.tree.groupedByTag": true,
+    "todo-tree.filtering.scopes": [
+
+    ],
+
+
+
+    
+    "todo-tree.highlights.customHighlight": {
+       
+        "[TODO_FIXME]": {"icon": "tools"},
+        "[TODO_WORK]": {"icon": "project-roadmap"},
+        "[TODO_IDEA]": {"icon": "cloud"},
+        
+        "[TODO_BUG]": {"icon": "project-roadmap"},
+    },
+    "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^[ \\t]*(-|\\d+.))\\s*(region )?($TAGS)",
+    "todo-tree.general.revealBehaviour": "leave focus in tree",
+    "outline-map.region.enabled": false,
+    "outline-map.region.tag": "\\[TODO_[a-zA-Z]*\\]"
+}

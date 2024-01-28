@@ -6,8 +6,37 @@
 //    }
 //  }
 //</script> 
+    // 7[TODO_BUG] 
+    // 7[TODO_HACK]
+    // 7[TODO_ERROR]
+    // 7[TODO_FIXME]
+    // 7[TODO_TODO]
+    // 7[TODO_XXX]
+    // 7[TODO_[ ]]
+    // 7[TODO_[x]]
+    // 7[TODO_BUG]
+    // 7[TODO_HACK]
+    // 7[TODO_ERROR]
+    // 7[TODO_FIXME]
+    // 7[TODO_TODO]
+    // 7[TODO_XXX]
+    // 7[TODO_[ ]]
+    // 7[TODO_[x]]
+    //TODO: XXX ???
+    //TODO: [ ]: неготова задача
+    //[x]  готова задача
+    //[TODO] ================
+    //#tag [TODO_FIXME] jh kl
+    // TODO: 545 345
+    // CHEK : test 
+    //TODO : REGION
+
 
 class Parcticle {
+    //#tag test BUG test
+    // [TODO_IDEA] добавить основным частичкам частицы
+    // [TODO_IDEA] чуть лучше оргонизовать методы класса
+    //TODO:XXX [rgba(100,200,100,0.1)]test параметры  
     PP       = {x:0,y:0}
     PPspeed  = 10 
     M_PP     = 1
@@ -32,7 +61,7 @@ class Parcticle {
     //  RE = RadiusElement  VE = VectorElement     PE = pointElement
     D_M_RE = 0 ;          M_VE = 0  ;          D_M_PE = 0
     time   = 0
-
+// #endregion test 
     constructor({scene,transformControl,three}){
         this . scene            = scene
         this . transformControl = transformControl
@@ -79,9 +108,12 @@ class Parcticle {
         this.transformControl  . attach              (this.PM);
 
         if(this.D_M_RM) this.RM  = this.CREATE_M_Radius ({divisions:30,radius:1})
-
     }
     CREATE_M_Particle(pos3 =[0,0,0]){
+        //#region [TODO_WORK] работа над частицей
+        // [TODO_WORK] добавить рандомизацию параметров (розиции,радиуса)
+        // [TODO_WORK] добавить переменные по позициям и радиусам
+        // [TODO_WORK] добавить флаги отображения (векторов радиусов и точек)
        this.M_P_list.push({
       //PP = PointParticle
         PP : this.CREATE_M_Point (pos3),
@@ -94,8 +126,9 @@ class Parcticle {
       //RT = RadiusTarget
         RT : this.CREATE_M_Radius ({divisions:30,radius:1.5}),
        })
+       //#endregion
     }
-    
+
     tic(iFrame){
       //console.log(this.PM.position , this.M_PP_list[0].position )  
       var Fspeed = (y)=>((y/10)**(1/4))*10
@@ -104,11 +137,11 @@ class Parcticle {
       var XZ = 0//iFrame/12 
       var Y  = 0//iFrame/48
       var Pi  = (XZ,Y)=> [ Math.cos(XZ)*Math.cos(Y) , Math.sin(Y),Math.sin(XZ)*Math.cos(Y)  ] // позиция на шаре с радиусом 1 
-
+        ()()([])
 
 
         for(let P of this.M_P_list){
-
+            // [TODO_WORK] добавить функцию скорости частице
             var PP_pos =    P.PP.position
             var PT_pos =    P.PT.position
             var PM_pos = this.PM.position
@@ -116,6 +149,7 @@ class Parcticle {
             let D = 1-((PM_pos.distanceTo(PP_pos) - 1 )/(1.5 - 1)   )
 
             var V ={
+                 // [TODO_WORK] переписать PT_power через .applyEuler убрав Pi
                 PT_power : PM_pos .clone() .add(new this.three .Vector3( ...Pi(XZ,0) ) .multiplyScalar (1.5) .applyEuler (P.RT.rotation) ),
                 PP_to_PT : PT_pos .clone() .sub(PP_pos)                                 , 
                 PM_to_PP : PM_pos .clone() .sub(PP_pos)                                 ,     
@@ -139,8 +173,12 @@ class Parcticle {
             .sub(V.PM_to_PP.multiplyScalar((FULL/10)*((Math.abs(D) + D)/10)) )// сила отталкивания от центра
             
 
-            // # ФИКС отображения векторов
+            //FIXME отображения векторов
             //визуальный вектор отталкивания
+
+                //#region [TODO_FIXME] отсутствует отображение векторов
+                //                     нужно вернуть
+                         
             let VM_pos = P.VM.geometry.attributes.position
                 VM_pos  .needsUpdate = true;
                 console.log()
@@ -158,7 +196,7 @@ class Parcticle {
                                                 .add     (  V.PP_to_PT .multiplyScalar(0.5) )
                                                 .toArray () )
                 VP_pos  . setXYZ (1 , ...PP_pos .toArray () )
-            
+                //#endregion
         }
     }
 }
