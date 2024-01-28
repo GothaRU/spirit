@@ -49,7 +49,6 @@ class Parcticle {
         return  Sphere
     }
     CREATE_M_Vector (points = [new this.three.Vector3( 0, 0, 0 ),new this.three.Vector3( 1, 0, 0 )])  {
-        //var this.M_list['M_'+]
         const   Lmaterial = new this . three.LineBasicMaterial( { color: 0x0000ff } );
         const   Lgeometry = new this . three.BufferGeometry().setFromPoints( points );
         const   line = new this . three.Line( Lgeometry, Lmaterial );
@@ -84,97 +83,83 @@ class Parcticle {
     }
     CREATE_M_Particle(pos3 =[0,0,0]){
        this.M_P_list.push({
+      //PP = PointParticle
         PP : this.CREATE_M_Point (pos3),
+      //VP = VectorParticle
         VP : this.CREATE_M_Vector([new this.three.Vector3( 0, 0, 0 ),new this.three.Vector3( 1, 0, 0 )]),
+      //VM = VectorMaster
         VM : this.CREATE_M_Vector([new this.three.Vector3( 0, 0, 0 ),new this.three.Vector3( 1, 0, 0 )]),
-
+      //PT = PointTarget
         PT : this.CREATE_M_Point  (this.PM.position.clone().add(new this.three.Vector3( 1.5, 0, 0 ))),
+      //RT = RadiusTarget
         RT : this.CREATE_M_Radius ({divisions:30,radius:1.5}),
-
-       }
-        
-        
-        
-        )
-
-
-      // var PT_pos = [
-      //              
-      // ]
-      // this.M_PT_list.push( this.CREATE_M_Point (PT_pos) )
+       })
     }
+    
     tic(iFrame){
       //console.log(this.PM.position , this.M_PP_list[0].position )  
-
+      var Fspeed = (y)=>((y/10)**(1/4))*10
+      var FULL   = Math.abs(2*1.5)
 
       var XZ = 0//iFrame/12 
       var Y  = 0//iFrame/48
       var Pi  = (XZ,Y)=> [ Math.cos(XZ)*Math.cos(Y) , Math.sin(Y),Math.sin(XZ)*Math.cos(Y)  ] // позиция на шаре с радиусом 1 
-      
-      
+
 
 
         for(let P of this.M_P_list){
+
+            var PP_pos =    P.PP.position
+            var PT_pos =    P.PT.position
+            var PM_pos = this.PM.position
+
+            let D = 1-((PM_pos.distanceTo(PP_pos) - 1 )/(1.5 - 1)   )
+
+            var V ={
+                PT_power : PM_pos .clone() .add(new this.three .Vector3( ...Pi(XZ,0) ) .multiplyScalar (1.5) .applyEuler (P.RT.rotation) ),
+                PP_to_PT : PT_pos .clone() .sub(PP_pos)                                 , 
+                PM_to_PP : PM_pos .clone() .sub(PP_pos)                                 ,     
+            }
+
+
+            
+
+
             //console.log(P)
-            this.RM.position.copy(this.PM.position)
-            P.RT.position.copy(this.PM.position)
-            P.RT.rotation.set(0,0,Y)
-            P.PT.position.copy(this.PM.position
-                                      .clone    ()
-                                      .add      (new this.three.Vector3        ( ...Pi(XZ,0) )
-                                                               .multiplyScalar (1.5)
-                                                               .applyEuler     (P.RT.rotation)) )
-                                           
-                    var FULL = Math.abs(2*1.5)
-                    let D = 1-((this.PM.position.distanceTo(P.PP.position) - 1 )/(1.5 - 1)   )
-            P.PP.position
-                .add(  
-                            P.PT.position
-                                .clone()
-                                .sub(P.PP.position)
-                                .multiplyScalar(0.03)       
-                )
-                .sub(  
-                    this.PM.position
-                        .clone()
-                        .sub(P.PP.position)
-                        .multiplyScalar((FULL/10)*((Math.abs(D) + D)/10))       
-            )
+            this .RM.position.copy(PM_pos)
+                P.RT.position.copy(PM_pos)
+                P.RT.rotation.set(0,0,Y)
 
 
-//     V2speed = 1-((this.F_VM().len - this.PMradius) / (this.PEradius - this.PMradius))
-           
-            let pos0 = P.VM.geometry.attributes.position
-            pos0  . needsUpdate = true;
-            pos0  . setXYZ (0 , ...P.PP.position.clone()
-                                                .sub(  this.PM.position
-                                                                    .clone()
-                                                                    .sub(P.PP.position)
-                                                                    .multiplyScalar((Math.abs(D) + D)/2)  )
-                                                .toArray()
-                            )
-            pos0  . setXYZ (1 , ...P.PP.position.toArray())
+            //движение цели
+            PT_pos.copy(V.PT_power )
+            //движение частицы
+            PP_pos
+            .add(V.PP_to_PT.multiplyScalar(0.03))// сила движение к цели
+            .sub(V.PM_to_PP.multiplyScalar((FULL/10)*((Math.abs(D) + D)/10)) )// сила отталкивания от центра
+            
+
+            // # ФИКС отображения векторов
+            //визуальный вектор отталкивания
+            let VM_pos = P.VM.geometry.attributes.position
+                VM_pos  .needsUpdate = true;
+                console.log()
+                VM_pos  .setXYZ(0 , ...PP_pos .clone   ()
+                                              .sub     (  V.PM_to_PP.multiplyScalar((Math.abs(D) + D)/2)  )
+                                              .toArray () )
+                VM_pos  .setXYZ(1 , ...PP_pos .toArray () )
 
 
-
-
-
-
-
-//.clone().sub(P.PT.position).multiplyScalar(0.05)
-            let pos1 = P.VP.geometry.attributes.position
-            pos1  . needsUpdate = true;
-            pos1  . setXYZ (0 , ...P.PP.position.clone()
-                                                .add(  P.PT.position
-                                                                    .clone()
-                                                                    .sub(P.PP.position)
-                                                                    .multiplyScalar(0.5)  )
-                                                .toArray()
-            )
-            pos1  . setXYZ (1 , ...P.PP.position.toArray())
-
+            //визуальный вектор движения к цели
+            let VP_pos = P.VP.geometry.attributes.position
+                VP_pos  . needsUpdate = true;
+                
+                VP_pos  . setXYZ (0 , ...PP_pos .clone   () 
+                                                .add     (  V.PP_to_PT .multiplyScalar(0.5) )
+                                                .toArray () )
+                VP_pos  . setXYZ (1 , ...PP_pos .toArray () )
+            
         }
-      
     }
 }
 

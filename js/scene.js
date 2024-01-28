@@ -76,6 +76,8 @@ scene.add( helper );
 var P = new Parcticle 	   ({scene,transformControl,three})
 P.CREATE_M_Master  ([0,0,0])
 P.CREATE_M_Particle([1,1,1])
+//P.CREATE_M_Particle([1,3,1])
+//P.CREATE_M_Particle([1,1,4])
 //var p1 = P . 	CREATE_M_Point ([0,0,0])
 		//transformControl        . attach              ( p1 );
 
@@ -94,12 +96,7 @@ function animate() {
 }
 animate();
 
-function render() {
-    // splines.uniform.mesh.visible = params.uniform;
-    // splines.centripetal.mesh.visible = params.centripetal;
-    // splines.chordal.mesh.visible = params.chordal;
-    renderer.render( scene, camera );
-}
+function render() {renderer.render( scene, camera ); }
 
 			function onPointerDown( event ) {
 				onDownPosition.x = event.clientX;
@@ -114,20 +111,7 @@ function render() {
 				}
 			}
 
-			function onPointerMove( event ) {
-				//pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-				//pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-				//raycaster.setFromCamera( pointer, camera );
-				//const intersects = raycaster.intersectObjects( splineHelperObjects, false );
-				//if ( intersects.length > 0 ) {
-				//	const object = intersects[ 0 ].object;
-				//	if ( object !== transformControl.object ) {
-				//		transformControl.attach( object );
-				//	}
-				//}
-				
-				
-			}
+			function onPointerMove( event ) {}
 
 			function onWindowResize() {
 
@@ -140,26 +124,5 @@ function render() {
 
 			}
 			var r = 0 
-			function updateMoveElemets(E) {
-				
-				
-
-			//	var pos  = V1.geometry.attributes.position
-			//		pos  . setXYZ(0 ,...p1.position.toArray())
-			//		pos  . needsUpdate = true;
-			//		// странное получение точек через жопу ..... ну ладно хоть так  
-			//		// почему блять не реализован pos.getXYZ ?!?!
-			//	var pos0 = new three.Vector3().fromBufferAttribute(pos, 0)
-			//	var pos1 = new three.Vector3().fromBufferAttribute(pos, 1)
-			//	R1. position.copy  ( pos0)
-			//	pos  . setXYZ(1,...pos0.multiplyScalar(0.5).toArray())
-
-
-
-
-				
-				//pos.setXYZ(1,  ...p1.position.toArray()  )
-				//console.log('E',R1 )
-
-			}
+			function updateMoveElemets(E) {}
 			
