@@ -137,7 +137,7 @@ class Parcticle {
       var XZ = 0//iFrame/12 
       var Y  = 0//iFrame/48
       var Pi  = (XZ,Y)=> [ Math.cos(XZ)*Math.cos(Y) , Math.sin(Y),Math.sin(XZ)*Math.cos(Y)  ] // позиция на шаре с радиусом 1 
-        ()()([])
+
 
 
         for(let P of this.M_P_list){
@@ -160,9 +160,9 @@ class Parcticle {
 
 
             //console.log(P)
-            this .RM.position.copy(PM_pos)
-                P.RT.position.copy(PM_pos)
-                P.RT.rotation.set(0,0,Y)
+            this.RM.position.copy(PM_pos)
+             P.RT.position.copy(PM_pos)
+             P.RT.rotation.set(0,0,Y)
 
 
             //движение цели

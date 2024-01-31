@@ -36,23 +36,7 @@
             "file": "/js/parcticle_3D.js"
         }
     ],
-    "indentRainbow.ignoreLinePatterns": [
-
-        "/[ \t]* [*]/g",
-        "/[ \t]+[/]{2}/g"
-    ],
     "workbench.iconTheme": "vscode-icons",
-    "indentRainbow.colorOnWhiteSpaceOnly": true,
-    "indentRainbow.indicatorStyle": "light",
-    "indentRainbow.lightIndicatorStyleLineWidth": 4,
-    "indentRainbow.colors": [
-
-
-        "rgba(255,255,64,0.5)",
-        "rgba(127,255,127,0.5)",
-        "rgba(255,127,255,0.5)",
-        "rgba(79,236,236,0.5)"
-    ],
     "workbench.editor.enablePreview": false,
     "bracket-pair-colorizer-2.rulerPosition": "Full",
     "bracket-pair-colorizer-2.scopeLineCSS": [
